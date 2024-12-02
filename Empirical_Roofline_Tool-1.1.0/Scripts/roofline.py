@@ -72,15 +72,15 @@ for line in sys.stdin:
       elif save_band:
         max_band.append(line[:-1])
 
-print "  %7.2f %s EMP" % (max_gflops_value,max_gflops_name)
+print("  %7.2f %s EMP" % (max_gflops_value,max_gflops_name))
 
 for m in flop_metadata:
-  print m
+  print(m)
 
-print
+print()
 
 for b in max_band:
-  print "%s EMP" % b
+  print("%s EMP" % b)
 
 for m in band_metadata:
-  print m
+  print(m)

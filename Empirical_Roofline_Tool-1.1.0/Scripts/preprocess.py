@@ -43,11 +43,11 @@ for l in os.sys.stdin:
   if not is_metadata and len(m) == INPUT.size:
     try:
       wkey = int(m[INPUT.wkey])
-      if not data.has_key(wkey):
+      if wkey not in data:
         data[wkey] = dict()
 
       tkey = int(m[INPUT.tkey])
-      if not data[wkey].has_key(tkey):
+      if tkey not in data[wkey]:
         data[wkey][tkey] = STATS.size*[0]
         first = True
       else:
@@ -76,15 +76,15 @@ for l in os.sys.stdin:
     except ValueError:
       pass
 
-for wkey in sorted(data.iterkeys()):
+for wkey in sorted(data.keys()):
   tdict = data[wkey]
-  for tkey in sorted(tdict.iterkeys()):
+  for tkey in sorted(tdict.keys()):
     stats = tdict[tkey]
 
     msec_min = stats[STATS.msec_min]
 
     msec_med = sorted(stats[STATS.msec_med])
-    msec_med = msec_med[len(msec_med)/2]
+    msec_med = msec_med[len(msec_med)//2]
 
     msec_max = stats[STATS.msec_max]
 
@@ -100,7 +100,7 @@ for wkey in sorted(data.iterkeys()):
       GFLOP_sec_med = gflops/(msec_med/MEGA)
       GFLOP_sec_max = gflops/(msec_min/MEGA)
 
-      print wkey,          \
+      print(wkey,          \
             tkey,          \
             msec_min,      \
             msec_med,      \
@@ -110,11 +110,11 @@ for wkey in sorted(data.iterkeys()):
             GB_sec_max,    \
             GFLOP_sec_min, \
             GFLOP_sec_med, \
-            GFLOP_sec_max
+            GFLOP_sec_max)
 
-  print ""
+  print("")
 
-print "META_DATA"
-for k,m in metadata.items():
+print("META_DATA")
+for k,m in list(metadata.items()):
   if k != "META_DATA":
-    print k
+    print(k)
